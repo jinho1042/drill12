@@ -1,5 +1,6 @@
 from pico2d import *
 import random
+from grass import Grass
 
 
 
@@ -19,6 +20,9 @@ def reset_world():
     global world
 
     world = []
+
+    grass = Grass()
+    world.append(grass)
 
 
 
