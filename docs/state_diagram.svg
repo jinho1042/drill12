@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560"
+     font-family="'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <style>
+      .state { fill: #eef4ff; stroke: #3b6fd8; stroke-width: 2; }
+      .auto { fill: #fff3e6; stroke: #e07b00; }
+      .name { font-size: 18px; font-weight: bold; fill: #1a1a1a; text-anchor: middle; }
+      .desc { font-size: 12px; fill: #555; text-anchor: middle; }
+      .edge { fill: none; stroke: #333; stroke-width: 1.6; marker-end: url(#arrow); }
+      .trig { font-size: 13px; font-weight: bold; fill: #b02a2a; font-family: Consolas, monospace; }
+      .evt { font-size: 11px; fill: #555; }
+    </style>
+  </defs>
+
+  <rect width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="40" class="name" font-size="22">Boy 상태 다이어그램</text>
+
+  <!-- 시작 -->
+  <circle cx="450" cy="110" r="9" fill="#1a1a1a"/>
+  <path class="edge" d="M450,119 V186"/>
+  <text x="462" y="155" class="evt">시작</text>
+
+  <!-- 상태 -->
+  <rect class="state" x="370" y="188" width="160" height="64" rx="14"/>
+  <text x="450" y="216" class="name">IDLE</text>
+  <text x="450" y="238" class="desc">제자리 대기</text>
+
+  <rect class="state" x="60" y="188" width="160" height="64" rx="14"/>
+  <text x="140" y="216" class="name">SLEEP</text>
+  <text x="140" y="238" class="desc">누워서 잠 (90° 회전)</text>
+
+  <rect class="state auto" x="680" y="188" width="160" height="64" rx="14"/>
+  <text x="760" y="214" class="name">AUTO_RUN</text>
+  <text x="760" y="236" class="desc">2배 크기 · 속도 15 · 무적</text>
+
+  <rect class="state" x="370" y="398" width="160" height="64" rx="14"/>
+  <text x="450" y="426" class="name">RUN</text>
+  <text x="450" y="448" class="desc">방향키 이동 (속도 5)</text>
+
+  <!-- IDLE <-> SLEEP -->
+  <path class="edge" d="M370,205 H222"/>
+  <text x="295" y="182" class="trig" text-anchor="middle">time_out</text>
+  <text x="295" y="198" class="evt" text-anchor="middle">IDLE 5초 경과</text>
+  <path class="edge" d="M220,235 H368"/>
+  <text x="295" y="255" class="trig" text-anchor="middle">space_down</text>
+  <text x="295" y="270" class="evt" text-anchor="middle">Space 누름</text>
+
+  <!-- IDLE <-> AUTO_RUN -->
+  <path class="edge" d="M530,205 H678"/>
+  <text x="605" y="182" class="trig" text-anchor="middle">a_down</text>
+  <text x="605" y="198" class="evt" text-anchor="middle">A 누름</text>
+  <path class="edge" d="M680,235 H532"/>
+  <text x="605" y="255" class="trig" text-anchor="middle">auto_run_time_out</text>
+  <text x="605" y="270" class="evt" text-anchor="middle">AUTO_RUN 5초 경과</text>
+
+  <!-- IDLE <-> RUN -->
+  <path class="edge" d="M430,252 V396"/>
+  <text x="420" y="320" class="trig" text-anchor="end">arrow_down</text>
+  <text x="420" y="336" class="evt" text-anchor="end">←/→ 누름</text>
+  <path class="edge" d="M470,398 V254"/>
+  <text x="480" y="320" class="trig">arrow_up</text>
+  <text x="480" y="336" class="evt">←/→ 뗌</text>
+
+  <!-- SLEEP -> RUN -->
+  <path class="edge" d="M140,252 V430 H368"/>
+  <text x="152" y="345" class="trig">arrow_down</text>
+  <text x="152" y="361" class="evt">←/→ 누름</text>
+
+  <!-- AUTO_RUN -> RUN -->
+  <path class="edge" d="M760,252 V430 H532"/>
+  <text x="748" y="345" class="trig" text-anchor="end">arrow_down</text>
+  <text x="748" y="361" class="evt" text-anchor="end">←/→ 누름</text>
+
+  <!-- RUN 자기 전이 -->
+  <path class="edge" d="M430,462 C415,515 485,515 470,464"/>
+  <text x="450" y="532" class="evt" text-anchor="middle">반대 방향키: 상태 유지, 방향만 전환</text>
+</svg>

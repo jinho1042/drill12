@@ -71,15 +71,9 @@ close_canvas()
 | `a_down` | A 누름 | IDLE | AUTO_RUN |
 | `auto_run_time_out` | AUTO_RUN 5초 경과 | AUTO_RUN | IDLE |
 
-```
-          time_out             a_down
-   SLEEP <-------- IDLE ------------------> AUTO_RUN
-     |   --------->  ^  <------------------    |
-     |   space_down  |   auto_run_time_out     |
-     |               | arrow_up                |
-     |  arrow_down   |                         | arrow_down
-     +-----------> RUN <-----------------------+
-```
+### 상태 다이어그램
+
+![Boy 상태 다이어그램](docs/state_diagram.svg)
 
 - RUN 중에 반대 방향키를 누르면 상태 전이 없이 방향만 바꾼다.
 - 초기 상태(IDLE)는 `on_enter` 콜백이 호출되지 않으므로 생성자에서 직접 대기 타이머를 시작한다.
